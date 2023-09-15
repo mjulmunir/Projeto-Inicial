@@ -33,9 +33,9 @@ public class ProdutosDAO {
 
             prep.executeUpdate();
 
-            System.out.println("Dados inseridos com sucesso!");
+            JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
         } catch (SQLException ex) {
-            System.out.println("Erro no acesso ao Bando de Dados : " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro no acesso ao Bando de Dados!");
         }
 
     }
