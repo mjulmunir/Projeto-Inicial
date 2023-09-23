@@ -60,7 +60,7 @@ public class ProdutosDAO {
 
                 listagem.add(produto);
                 System.out.println(produto.getId());
-            }while (!resultset.isLast());
+            } while (!resultset.isLast());
         } catch (SQLException ex) {
             System.out.println("Erro no acesso ao Bando de Dados!");
         }
@@ -68,4 +68,18 @@ public class ProdutosDAO {
         return listagem;
     }
 
+    public void venderProduto(int id) {
+        try {
+            conn = new conectaDAO().connectDB();
+
+            prep = conn.prepareStatement("UPDATE produtos SET status = 'Vendido' WHERE id = ?");
+            prep.setInt(1, id);
+
+            prep.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Status atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no acesso ao Bando de Dados!");
+        }
+    }
 }
