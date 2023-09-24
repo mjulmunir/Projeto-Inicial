@@ -41,7 +41,7 @@ public class ProdutosDAO {
     public ArrayList<ProdutosDTO> listarProdutos() {
         try {
             conn = new conectaDAO().connectDB();
-
+            
             prep = conn.prepareStatement("SELECT * FROM produtos;");
 
             resultset = prep.executeQuery();
@@ -59,7 +59,6 @@ public class ProdutosDAO {
                 produto.setStatus(resultset.getString("status"));
 
                 listagem.add(produto);
-                System.out.println(produto.getId());
             } while (!resultset.isLast());
         } catch (SQLException ex) {
             System.out.println("Erro no acesso ao Bando de Dados!");
@@ -81,5 +80,34 @@ public class ProdutosDAO {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro no acesso ao Bando de Dados!");
         }
+    }
+
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+        try {
+            conn = new conectaDAO().connectDB();
+
+            prep = conn.prepareStatement("SELECT * FROM produtos WHERE status = 'Vendido'");
+
+            resultset = prep.executeQuery();
+
+            ProdutosDTO produto;
+
+            do {
+                resultset.next();
+
+                produto = new ProdutosDTO();
+
+                produto.setId(resultset.getInt("id"));
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+
+                listagem.add(produto);
+            } while (!resultset.isLast());
+        } catch (SQLException ex) {
+            System.out.println("Erro no acesso ao Bando de Dados!");
+        }
+
+        return listagem;
     }
 }
